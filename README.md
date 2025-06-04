@@ -45,7 +45,7 @@ git clone https://github.com/TiffenYi/VLBCD
 cd VLBCD
 ```
 
-#### Step 5: Install Dependencies and MMDetection
+#### Step 5: Install Dependencies
 
 ```bash
 bash setup.sh
