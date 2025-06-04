@@ -94,10 +94,10 @@ dataset/
 To train the model using a specified config file:
 
 ```bash
-python tools/train.py path/to/your_config.py
+python tools/train.py path/to/config.py
 ```
 
-### 3.2 Inference and Visualization
+### 3.2 Evaluation and Visualization
 
 To run inference using a trained model and save the prediction visualizations:
 
@@ -105,13 +105,7 @@ To run inference using a trained model and save the prediction visualizations:
 python box2cd_result.py path/to/config.py path/to/model.pth --show-dir path/to/output_images/
 ```
 
-- `path/to/config.py`: configuration file used for training
-- `path/to/model.pth`: checkpoint file
-- `--show-dir`: directory to save the visualization outputs
-
-### 3.3 Evaluation
-
-To evaluate a trained model and compute metrics such as **Precision**, **Recall**, **F1-score**, and **IoU**, run:
+To evaluate a trained model and compute metrics such as **Precision**, **Recall**, **F1-score**, and **IoU**:
 
 ```bash
 python find_best_model.py path/to/config.py path/to/work_dir/ --show-dir path/to/output_results/
@@ -120,7 +114,7 @@ python find_best_model.py path/to/config.py path/to/work_dir/ --show-dir path/to
 **Arguments:**
 
 - `path/to/config.py`: the config file used for training
-- `path/to/work_dir/`: the directory where training checkpoints and logs are saved
+- `path/to/work_dir/`: the directory where training checkpoints are saved
 - `--show-dir`: the folder to save evaluation results and visualizations
 
 ## 4. Acknowledgements
