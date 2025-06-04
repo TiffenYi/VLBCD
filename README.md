@@ -14,18 +14,6 @@ regex
 ftfy
 fvcore
 timm==0.6.13 
-
-运行指令
-export CUDA_VISIBLE_DEVICES=3
-nohup python tools/train.py  configs/my_config/box2cd_clip_vit/box2cd_clip_fpn_vit_whu_v4.py > out3.txt 2>&1&
-
-nohup python find_best_model.py configs/my_config/box2cd_clip_vit/box2cd_clip_fpn_vit_whu_v4.py work_dirs/box2cd_clip_fpn_vit_whu_v5/  --show-dir result/box2cd_clip_fpn_vit_whu_v5/ > work_dirs/box2cd_clip_fpn_vit_whu_v5/best2.file 2>&1&
-
-
-
-
-
-
 ```
 
 ## 2、安装指令
@@ -54,12 +42,7 @@ pip install timm==0.6.13
 pip install scikit-image
 ```
 
-## 3、代码说明
-* 代码配置文件目录见：`BoxInstSeg/configs/changeDetection/**`带目录下包含`box2cd`和`box2cd_clip` 其对应为基于水平集演化的弱监督模型Box2Change以及利用CLIP实现跨模态的弱监督模型。
-* 模型框架、Head以及loss见：`BoxInstSeg/mmdet/models/**`
-* 数据集格式见：`BoxInstSeg/mmdet/datasets/levir_cd.py`
-
-## 4、 数据集样式
+## 3、 数据集样式
 本代码数据集目录格式如下：
 ```
 ├─annotations
@@ -73,18 +56,15 @@ pip install scikit-image
     └─label
 ```
 其中`annotaions`内包含box级标签用于训练，`label`下为像素级标签，用于实验比较结果。
-`annotaions `下位json文件，其内格式符合coco数据集样式。
-## 5、代码指令
+`annotaions`下为.json文件，其内格式符合coco数据集样式。
+
+## 4、代码指令
 训练指令
-```
-格式： python tools/train.py 配置文件.py
-示例：
-python  tools/train.py  configs/my_config/box2cd_clip_ablation/box2cd_clip_resnet_whu.py
+```python
+python tools/train.py path/to/your_config.py
 ```
 样本生成
-```
-格式： python box2cd_result.py  配置文件.py  模型文件路径  --show-dir 图片输出目录
-示例：
-python box2cd_result.py configs/my_config/box2cd_self/box2cd_self_GZ_base.py  work_dirs/box2cd_self_LEVIR_sscl/epoch_24.pth  --show-dir  work_dirs/result_cross_dataset/result_self_gz_sscl/
+```python
+python box2cd_result.py path/to/config.py path/to/model.pth --show-dir path/to/output_images/
 ```
 
