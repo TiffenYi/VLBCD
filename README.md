@@ -4,21 +4,13 @@ Vision-language joint learning for  box-supervised change detection in remote se
 
 ## 1. Environment Setup
 
-**Supported Platforms:**
+<h3>Supported Platforms</h3>
 
 - Linux / macOS
 - Python ≥ 3.6 (Tested on Python 3.8)
 - PyTorch ≥ 1.7 (Tested on PyTorch 1.9.0)
 - CUDA ≥ 9.2 (Tested on CUDA 11.1)
 - GCC ≥ 5.0
-
-**Dependencies:**
-
-- `mmdet==2.25.0`
-- `mmcv-full==1.5.0`
-- `mmseg==0.20.0`
-- `regex`, `ftfy`, `fvcore`
-- `timm==0.6.13`
 
 ### Installation Guide
 
