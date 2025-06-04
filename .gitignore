@@ -107,7 +107,7 @@ venv.bak/
 data/
 data
 .vscode
-.idea
+#.idea
 .DS_Store
 
 # custom
