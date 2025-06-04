@@ -1,10 +1,6 @@
-以下是将你提供的内容重新改写为更贴合**SCI风格项目在 GitHub 上发布**的 `README.md` 格式，语言更加专业、结构更清晰，也更便于读者快速理解和复现：
-
-------
-
 # VLBCD
 
-A Vision-Language Bimodal Change Detection Framework based on Box-Level Supervision.
+Vision-language joint learning for  box-supervised change detection in remote sensing
 
 ## 1. Environment Setup
 
@@ -109,7 +105,19 @@ python box2cd_result.py path/to/config.py path/to/model.pth --show-dir path/to/o
 - `path/to/model.pth`: checkpoint file
 - `--show-dir`: directory to save the visualization outputs
 
+### 3.3 Evaluation
 
+To evaluate a trained model and compute metrics such as **Precision**, **Recall**, **F1-score**, and **IoU**, run:
+
+```bash
+python find_best_model.py path/to/config.py path/to/work_dir/ --show-dir path/to/output_results/
+```
+
+**Arguments:**
+
+- `path/to/config.py`: the config file used for training
+- `path/to/work_dir/`: the directory where training checkpoints and logs are saved
+- `--show-dir`: the folder to save evaluation results and visualizations
 
 ## 4. Acknowledgements
 
