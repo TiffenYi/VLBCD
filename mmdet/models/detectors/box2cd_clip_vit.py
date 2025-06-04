@@ -415,31 +415,24 @@ class Box2Cd_CLIP_vit(SingleStageBox2CdDetector):
             x_orig.append(f)
 
         #可视化 分数图
-        out_dir = 'work_dirs/heatmaps/'
-        if os.path.exists(out_dir)==False:
-            os.makedirs(out_dir)
-        s1 = score_map1
-        s2 = score_map2
-        # print(s1.device,score_mask.device)
-        diff = torch.mean(torch.abs(s1 - s2), dim=1).unsqueeze(1)
-        diff = torch.sigmoid(diff)
-        diff = torch.cat([diff, 1 - diff], dim=1)
-        feature_vis=diff
-        channel_num = feature_vis.shape[1]
-        for i in range(channel_num):
-            out_file = os.path.join(out_dir, os.path.splitext(img_meta[0]['ori_filename'])[0]+'_'+str(i) + os.path.splitext(img_meta[0]['ori_filename'])[1])
-            self.visulize_all_channel_into_one(feature_vis[0][i], out_file)
+        # out_dir = 'work_dirs/heatmaps/'
+        # if os.path.exists(out_dir)==False:
+        #     os.makedirs(out_dir)
+        # s1 = score_map1
+        # s2 = score_map2
+        # # print(s1.device,score_mask.device)
+        # diff = torch.mean(torch.abs(s1 - s2), dim=1).unsqueeze(1)
+        # diff = torch.sigmoid(diff)
+        # diff = torch.cat([diff, 1 - diff], dim=1)
+        # feature_vis=diff
+        # channel_num = feature_vis.shape[1]
+        # for i in range(channel_num):
+        #     out_file = os.path.join(out_dir, os.path.splitext(img_meta[0]['ori_filename'])[0]+'_'+str(i) + os.path.splitext(img_meta[0]['ori_filename'])[1])
+        #     self.visulize_all_channel_into_one(feature_vis[0][i], out_file)
 
         if self.with_neck:
             _x_orig = self.neck(x_orig)
 
-        # _x_orig = list(_x_orig)
-        # text_diff_embedding = torch.abs(text_embeddings1 - text_embeddings2)
-        # for i in range(4):
-        #     cross_name = self.cross_layer[i]
-        #     cross_modul = getattr(self, cross_name)
-        #     _x_orig[i] = cross_modul(text_diff_embedding, _x_orig[i])
-        # _x_orig = tuple(_x_orig)
 
         outs = self.bbox_head(_x_orig, eval=True)
 

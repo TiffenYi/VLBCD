@@ -1,20 +1,10 @@
-'''
-自定义的 以box为弱监督的利用clip进行跨模态训练框架   双分支 后融合  无cross attention
-'''
-
 #para
 img_scale=(256,256)
 lr=0.0001
 warmup_iters=500
 max_epochs=12*8
 lr_step=[9, 11]
-# lr_step=[18, 22]
-# class_names=('Building','not Building')
-# class_names=('Natural Environment','Transportation','Recreation & Sports',
-#              'Residential & Buildings','Commercial & Industrial',)
 class_names=('Building','Road','Parking lot','Vegetation','Water',)
-# class_names=('Natural Environment','Transportation','Recreation Buildings','Sports Buildings',
-#              'Residential','Buildings','Commercial Buildings','Industrial Buildings','background objects')
 text_len=len(class_names)
 num_classes=1
 
@@ -81,7 +71,7 @@ model = dict(
             loss_weight=3.0),
         loss_levelset=dict(
             type='LevelsetLoss',
-            loss_weight=0.0),  #########  0   原1
+            loss_weight=0.0), 
         loss_sscr=dict(
             type='SscrLoss',
             loss_weight=1.0
@@ -101,12 +91,9 @@ model = dict(
         sigma=2.0,
         max_per_img=100))
 
-
-
-
 # dataset settings
 dataset_type = 'LEVIRcdDataset'
-data_root = '/data/ytf/datasets/box-level/BCDD/'
+data_root = '/path/to/WHU-CD/'
 img_norm_cfg = dict(
     mean=[123.675, 116.28, 103.53], std=[58.395, 57.12, 57.375], to_rgb=True)
 train_pipeline = [
@@ -153,19 +140,6 @@ data = dict(
         img_prefix=data_root + 'test',
         pipeline=test_pipeline))
 
-
-# lr_config = dict(
-#     policy='step',
-#     warmup='linear',
-#     warmup_iters=warmup_iters,
-#     warmup_ratio=0.001,
-#     step=lr_step)
-# optimizer = dict(
-#     type='AdamW',
-#     lr=lr,
-#     weight_decay=0.1,
-#     paramwise_cfg=dict(norm_decay_mult=0., bypass_duplicate=True))
-
 lr_config = dict(policy='poly', power=0.9, min_lr=1e-6, by_epoch=False,
                 warmup='linear',
                  warmup_iters=1500,
@@ -180,14 +154,6 @@ optimizer = dict(type='AdamW', lr=lr, weight_decay=0.0001,
 
 optimizer_config = dict(grad_clip=dict(max_norm=1, norm_type=2))
 
-
-# yapf:disable
-log_config = dict(
-    interval=50,
-    hooks=[
-        dict(type='TextLoggerHook'),
-    ])
-# yapf:enable
 # runtime settings
 runner = dict(type='EpochBasedRunner', max_epochs=max_epochs)
 checkpoint_config = dict(interval=3)
@@ -199,7 +165,7 @@ evaluation = dict(interval=1, metric=['segm'])
 device_ids = range(4)
 dist_params = dict(backend='nccl')
 log_level = 'INFO'
-work_dir = './work_dirs/box2cd_clip_fpn_vit_whu_v5'
+work_dir = './work_dirs/box2cd_clip_fpn_vit_whu'
 load_from = None
 resume_from = None
 workflow = [('train', 1)]
