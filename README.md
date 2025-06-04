@@ -72,6 +72,10 @@ dataset/
 │   ├── A/             # First temporal image
 │   ├── B/             # Second temporal image
 │   └── label/         # Pixel-wise labels (optional, for comparison)
+├── test/
+│   ├── A/             
+│   ├── B/           
+│   └── label/  
 └── val/
     ├── A/
     ├── B/
