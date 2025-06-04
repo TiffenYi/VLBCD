@@ -2,7 +2,7 @@
 img_scale=(256,256)
 lr=0.0001
 warmup_iters=500
-max_epochs=12*8
+max_epochs=12*4
 lr_step=[9, 11]
 class_names=('Building','Road','Parking lot','Vegetation','Water',)
 text_len=len(class_names)
@@ -87,15 +87,13 @@ model = dict(
         score_thr=0.05,
         mask_thr=0.70,
         filter_thr=0.025,
-        kernel='gaussian',  # gaussian/linear
+        kernel='gaussian',  
         sigma=2.0,
         max_per_img=100))
 
-
-
 # dataset settings
 dataset_type = 'LEVIRcdDataset'
-data_root = '/path/to/LEVIR-CD/'
+data_root = '/path/to/dataset/'
 img_norm_cfg = dict(
     mean=[123.675, 116.28, 103.53], std=[58.395, 57.12, 57.375], to_rgb=True)
 train_pipeline = [
@@ -124,24 +122,23 @@ test_pipeline = [
         ])
 ]
 data = dict(
-    samples_per_gpu=8,
-    workers_per_gpu=4,
+    samples_per_gpu=4,
+    workers_per_gpu=2,
     train=dict(
         type=dataset_type,
-        ann_file=data_root + 'annotations/LEVIR_train.json',
+        ann_file=data_root + 'annotations/dataset_train.json',
         img_prefix=data_root + 'train',
         pipeline=train_pipeline),
     val=dict(
         type=dataset_type,
-        ann_file=data_root + 'annotations/LEVIR_test.json',
+        ann_file=data_root + 'annotations/dataset_test.json',
         img_prefix=data_root + 'test',
         pipeline=test_pipeline),
     test=dict(
         type=dataset_type,
-        ann_file=data_root + 'annotations/LEVIR_test.json',
+        ann_file=data_root + 'annotations/dataset_test.json',
         img_prefix=data_root + 'test',
         pipeline=test_pipeline))
-
 
 lr_config = dict(policy='poly', power=0.9, min_lr=1e-6, by_epoch=False,
                 warmup='linear',
@@ -163,7 +160,7 @@ evaluation = dict(interval=1, metric=['segm'])
 device_ids = range(4)
 dist_params = dict(backend='nccl')
 log_level = 'INFO'
-work_dir = './work_dirs/box2cd_clip_fpn_vit_levir'
+work_dir = './work_dirs/box2cd_clip_fpn_vit'
 load_from = None
 resume_from = None
 workflow = [('train', 1)]
